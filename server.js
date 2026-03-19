@@ -1,26 +1,21 @@
 const { spawn } = require("child_process");
 
-const servers = [
-  {
-    name: "fetch",
-    port: 3001,
-    command: "npx",
-    args: ["-y", "mcp-node-fetch"],
-  },
-  // Add more servers here as needed
-];
+const PORT = process.env.PORT || 3000;
 
-for (const srv of servers) {
-  const proc = spawn("npx", [
-    "-y", "supergateway",
-    "--stdio", [srv.command, ...srv.args].join(" "),
-    "--port", String(srv.port),
-  ], {
-    stdio: "inherit",
-    env: { ...process.env },
-  });
+const proc = spawn("npx", [
+  "-y", "supergateway",
+  "--stdio", "npx -y mcp-node-fetch",
+  "--port", String(PORT),
+], {
+  stdio: "inherit",
+  env: { ...process.env },
+  shell: true,
+});
 
-  proc.on("error", (err) => console.error(`${srv.name} error:`, err));
-  proc.on("exit", (code) => console.log(`${srv.name} exited with code ${code}`));
-  console.log(`Starting ${srv.name} on port ${srv.port}`);
-}
+proc.on("error", (err) => console.error("supergateway error:", err));
+proc.on("exit", (code) => {
+  console.log("supergateway exited with code", code);
+  process.exit(code || 1);
+});
+
+console.log(`MCP proxy starting on port ${PORT}`);
