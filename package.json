@@ -1,0 +1,12 @@
+{
+  "name": "kira-mcp-proxy",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "supergateway": "^0.1.0",
+    "@modelcontextprotocol/server-filesystem": "latest",
+    "mcp-node-fetch": "latest"
+  }
+}
