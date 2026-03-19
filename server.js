@@ -4,7 +4,7 @@ const PORT = process.env.PORT || 3000;
 
 const proc = spawn("npx", [
   "-y", "supergateway",
-  "--stdio", "npx -y mcp-node-fetch",
+  "--stdio", "npx -y @anthropic/mcp-server-fetch",
   "--port", String(PORT),
 ], {
   stdio: "inherit",
