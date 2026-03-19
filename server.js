@@ -6,7 +6,7 @@ const MCP_NAME = process.env.MCP_NAME || "mcp-proxy";
 
 const proc = spawn("npx", [
   "-y", "supergateway",
-  "--stdio", MCP_COMMAND,
+  "--stdio", `"${MCP_COMMAND}"`,
   "--port", String(PORT),
 ], {
   stdio: "inherit",
